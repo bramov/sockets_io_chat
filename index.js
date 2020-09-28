@@ -2,7 +2,7 @@ const express = require('express');
 const socket = require('socket.io');
 
 const app = express();
-const PORT = express.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 const server = app.listen(PORT, () => {
   console.log('listening on request');
 });
