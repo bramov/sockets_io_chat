@@ -1,4 +1,5 @@
-const socket = io.connect('http://localhost:4000');
+const url = window.location.href;
+const socket = io.connect(url);
 
 const preview = document.getElementById('preview');
 const output = document.getElementById('output');
