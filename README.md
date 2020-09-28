@@ -1,3 +1,3 @@
 # Simple online chat with Sockets.io on Express Node.js server
 
-## How to run this 
+check this out by visiting https://online-chat-sockets.herokuapp.com/
