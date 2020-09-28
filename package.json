@@ -1,0 +1,21 @@
+{
+  "name": "socket_io_chat",
+  "version": "1.0.0",
+  "description": "simple socket io chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm & browser-sync start --proxy 'localhost:4000' --files 'public'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "bramov"
+  },
+  "author": "bramov",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "socket.io": "^2.3.0"
+  }
+}
