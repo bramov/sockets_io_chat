@@ -10,7 +10,9 @@ const amount = document.getElementById('amount');
 let timeout;
 
 socket.on('count members', (data) => {
-  amount.innerText = data;
+  amount.innerText = data.length;
+  const string = data.join(', ');
+  document.getElementById('people-online').innerHTML = string;
 })
 
 const chatFunction = (e) => {
@@ -56,7 +58,7 @@ const chatFunction = (e) => {
 
   socket.on('left', (data) => {
     if (data) {
-      feedback.innerHTML = '<p class="join">' + data + ' left the chat.' + '</em></p>';
+      output.innerHTML += '<p class="join">' + data + ' left the chat.' + '</em></p>';
     }
   })
 
