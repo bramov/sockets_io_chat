@@ -9,15 +9,28 @@ const server = app.listen(PORT, () => {
 
 app.use(express.static('public'));
 
+//storing users at array list
+let usersList = [];
+
 const io = socket(server);
 
 io.on('connection', (socket) => {
-  console.log('made socket connection');
+
   socket.on('chat', (data) => {
     io.sockets.emit('chat', data);
   })
   socket.on('join', (data) => {
     io.sockets.emit('join', data);
+    io.sockets.emit('count members', usersList.length);
+  })
+  socket.on('new user', (data) => {
+    usersList.push(data);
+    socket.username = data;
+  })
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('left', socket.username);
+    usersList = usersList.filter(el => el !== socket.username);
+    io.sockets.emit('count members', usersList.length);
   })
   socket.on('typing', (data) => {
     socket.broadcast.emit('typing', data);

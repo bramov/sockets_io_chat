@@ -6,7 +6,12 @@ const output = document.getElementById('output');
 const feedback = document.getElementById('feedback');
 const chatWindow = document.getElementById('chat-window');
 const join = document.querySelector('.join');
+const amount = document.getElementById('amount');
 let timeout;
+
+socket.on('count members', (data) => {
+  amount.innerText = data;
+})
 
 const chatFunction = (e) => {
   const nickname = document.getElementById('nickname');
@@ -18,7 +23,7 @@ const chatFunction = (e) => {
 
   preview.style.display = 'none';
   chatBlock.style.display = 'block';
-
+  socket.emit('new user', nickname.value);
   socket.emit('join', nickname.value);
 
   btn.addEventListener('click', (e) => {
@@ -26,8 +31,10 @@ const chatFunction = (e) => {
     socket.emit('chat', {
       message: message.value,
       nickname: nickname.value,
-    })
+    });
+    message.value = '';
   });
+
 
 
   message.addEventListener('keydown', () => {
@@ -44,12 +51,17 @@ const chatFunction = (e) => {
   }
 
   socket.on('join', (data) => {
-    output.innerHTML += '<p class="join">' + data + ' joined the chat.</p>'
+    output.innerHTML += '<p class="join">' + data + ' joined the chat.</p>';
+  })
+
+  socket.on('left', (data) => {
+    if (data) {
+      feedback.innerHTML = '<p class="join">' + data + ' left the chat.' + '</em></p>';
+    }
   })
 
   socket.on('chat', (data) => {
     feedback.innerHTML = '';
-    message.value = '';
     output.innerHTML += '<p><strong>' + data.nickname +': </strong>' + data.message + '</p>';
     scrollDown();
   })
