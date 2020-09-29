@@ -28,7 +28,7 @@ img {
     padding: 3%;
 }
 
-#mario-chat{
+#chat-screen{
     display: none;
     max-width: 600px;
     margin: 30px auto;
@@ -87,4 +87,15 @@ button{
     padding: 12px 0;
     width: 100%;
     border-radius: 0 0 2px 2px;
+}
+@media screen and (max-width: 600px) {
+    #preview {
+        max-width: 90%;
+    }
+    #chat-screen {
+        max-width: 90%;
+    }
+    h1 {
+        font-size: 6vw;
+    }
 }

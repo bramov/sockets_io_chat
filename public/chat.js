@@ -11,7 +11,7 @@ let timeout;
 const chatFunction = (e) => {
   const nickname = document.getElementById('nickname');
   e.preventDefault();
-  const chatBlock = document.getElementById('mario-chat');
+  const chatBlock = document.getElementById('chat-screen');
   const message = document.getElementById('message');
 
   const btn = document.getElementById('send');
@@ -36,8 +36,11 @@ const chatFunction = (e) => {
     timeout = setTimeout(timeoutFunction, 2000)
   });
 
-  function timeoutFunction() {
+  const timeoutFunction = () => {
     socket.emit("typing", false);
+  }
+  const scrollDown = () => {
+    chatWindow.scrollTop = chatWindow.scrollHeight;
   }
 
   socket.on('join', (data) => {
@@ -48,7 +51,7 @@ const chatFunction = (e) => {
     feedback.innerHTML = '';
     message.value = '';
     output.innerHTML += '<p><strong>' + data.nickname +': </strong>' + data.message + '</p>';
-
+    scrollDown();
   })
 
   socket.on('typing', (data) => {
