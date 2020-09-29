@@ -15,13 +15,14 @@ let usersList = [];
 const io = socket(server);
 
 io.on('connection', (socket) => {
-
+  io.sockets.emit('count members', usersList);
   socket.on('chat', (data) => {
     io.sockets.emit('chat', data);
   })
   socket.on('join', (data) => {
     io.sockets.emit('join', data);
     io.sockets.emit('count members', usersList);
+    console.log(usersList);
   })
   socket.on('new user', (data) => {
     usersList.push(data);
@@ -30,6 +31,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     socket.broadcast.emit('left', socket.username);
     usersList = usersList.filter(el => el !== socket.username);
+    console.log(usersList);
     io.sockets.emit('count members', usersList);
   })
   socket.on('typing', (data) => {
